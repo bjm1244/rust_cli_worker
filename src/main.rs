@@ -26,7 +26,7 @@ async fn view_msg_sleep(process_exec_flag: i32, checked_flag: i32, msg: &str)->i
     }
 }
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut process_exec_flag: i32 = 0;
     loop {
         let checked_online = Option::Some(check(None).await.is_ok());
@@ -38,10 +38,12 @@ async fn main() {
                 process_exec_flag = view_msg_sleep(process_exec_flag, 1, "connect is dead false!!!").await;
             },
             None => {
-                process_exec_flag = view_msg_sleep(process_exec_flag, 2, "connect is dead!!!").await;
+                // process_exec_flag = view_msg_sleep(process_exec_flag, 2, "connect is dead!!!").await;
+                break;
             },
         }
         println!("{}", process_exec_flag);
         sleep(time::Duration::from_secs(1));
     }
+    Ok(())
 }
