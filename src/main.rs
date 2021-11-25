@@ -11,12 +11,13 @@ async fn view_msg_sleep(process_exec_flag: i32, checked_flag: i32, msg: &str)->O
             match output {
                 Ok(data) => {      
                     println!("The network is connected and program execute : {:?}", data);
+                    return Some(1);
                 }
                 Err(err) => {
                     println!("The network is connected and program execute error : {}", err);
+                    return None;
                 },
             };
-            return Some(1);
         }else{
             println!("The network is connected and program running");
             return Some(process_exec_flag);
@@ -30,12 +31,13 @@ async fn view_msg_sleep(process_exec_flag: i32, checked_flag: i32, msg: &str)->O
             match output {
                 Ok(data) => {      
                     println!("The network is not connected and program exit : {:?}", data);
+                    return Some(0);
                 }
                 Err(err) => {
                     println!("The network is not connected and program exit error : {}", err);
+                    return None;
                 },
             };
-            return Some(0);
         }
     }else{
         return None;
